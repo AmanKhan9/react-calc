@@ -1,0 +1,28 @@
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+}
+.buttons button:first-child{
+    font-size: 1.4em;
+    color: red;
+}
+
+.buttons .operator:last-child{
+    width: 45%;
+    color: #fff;
+    background-color: #8ab4f8;
+}
+.buttons button{
+    padding: 5% 0%;
+    font-size: 1.2em;
+    width: 25%; 
+    margin: 3% 0%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.buttons .operator{
+    color : #FF0000;    ;
+    font-size: 1.5em;
+}
+
