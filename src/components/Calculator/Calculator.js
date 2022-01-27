@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Display from '../Display/Display'
 import Buttons from '../Buttons/Buttons'
+import operations  from './operations';
 import './style.css'
 
 function Calculator(){
@@ -64,26 +65,26 @@ function Calculator(){
 
     const inputValues = (num) => {
         if(isOperator1 === false){
-            if(isFirstCalculation){
-                reinit(num, true)
-                setIsFirstCalculation(false)
-            }
-            if( num === '.'){
-                calculation.firstNumber += num
-                setDisplay1(display1 + num)
-                calculation.resultNumber = ''
-                }else if (num === 'x'){
-                    setCalculation({ 
-                    'firstNumber': calculation.firstNumber.slice(0, -1),
-                    'secondNumber': '',
-                    'operator': '',
-                })
-                setDisplay1(display1)   
-            }else{ 
-                calculation.firstNumber += num
-                setDisplay1(display1 + num)
-                calculation.resultNumber = ''
-            }
+        if(isFirstCalculation){
+            reinit(num, true)
+            setIsFirstCalculation(false)
+        }
+        if(num === '.'){
+            calculation.firstNumber += num
+            calculation.resultNumber = ''
+            setDisplay1(display1 + num)
+            }else if (num === 'x'){
+                setCalculation({ 
+                'firstNumber': calculation.firstNumber.slice(0, -1),
+                'secondNumber': '',
+                'operator': '',
+            })
+            setDisplay1(display1)   
+        }else{ 
+            calculation.firstNumber += num
+            calculation.resultNumber = ''
+            setDisplay1(display1 + num)
+        }
         }else{
             if (num === '.'){
                 calculation.secondNumber += num
@@ -102,8 +103,8 @@ function Calculator(){
     }
 
     const calculate = (num) => {
-        if (!isNaN(num) || num === '.' || num === 'x') inputValues(num)
-        else if(num === 'AC') reinit()
+        if(num==='AC') reinit()
+        else if (!isNaN(num) || num === '.' || num === 'x') inputValues(num)
         else if ((num === '/' || num === '-' ||  num === '*' || num === '+' || num === '%') & isOperator2){
             inputOperator(num)
         }
@@ -114,13 +115,6 @@ function Calculator(){
     }
     
     const executeOperation = () => {
-        const operations = {
-            '%':(a,b) => (parseFloat(a)%parseFloat(b)),
-            '/':(a,b) => (parseFloat(a)/parseFloat(b)),
-            '+':(a,b) => (parseFloat(a)+ parseFloat(b)),
-            '-':(a,b) => (parseFloat(a)-parseFloat(b)),
-            '*':(a,b) => (parseFloat(a)*parseFloat(b)),
-        }
         let result = operations[calculation.operator](calculation.firstNumber, calculation.secondNumber)
         calculation.resultNumber = result
         setIsOperator1(false)
